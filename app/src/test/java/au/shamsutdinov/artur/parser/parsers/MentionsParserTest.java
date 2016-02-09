@@ -10,27 +10,26 @@ import java.util.Arrays;
 import rx.observers.TestSubscriber;
 
 @RunWith(Parameterized.class)
-public class EmoticonsParserTest {
-
+public class MentionsParserTest {
     @Parameterized.Parameters(name = "{index}: {0}")
     public static Iterable<Object[]> data() {
         return Arrays.asList(new Object[][]{
-                {"Good morning! (megusta) (coffee)", new Object[]{"megusta", "coffee"}},
-                {"@bob @john (success) such a cool feature; https://twitter.com/jdorfman/status/430511497475670016", new Object[]{"success"}},
+                {"@chris you around?", new Object[]{"chris"}},
+                {"@bob @john (success) such a cool feature; https://twitter.com/jdorfman/status/430511497475670016", new Object[]{"bob", "john"}},
         });
     }
 
     private final String text;
     private final Object[] result;
 
-    public EmoticonsParserTest(String text, Object[] result) {
+    public MentionsParserTest(String text, Object[] result) {
         this.text = text;
         this.result = result;
     }
 
     @Test
     public void simpleTest() throws JSONException {
-        EmoticonsParser parser = new EmoticonsParser();
+        MentionsParser parser = new MentionsParser();
         TestSubscriber<Object> testSubscriber = new TestSubscriber<>();
         parser.parse(text).subscribe(testSubscriber);
         testSubscriber.assertNoErrors();
