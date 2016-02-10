@@ -26,10 +26,10 @@ public class RegexParser {
         this.selector = selector;
     }
 
-    public Observable<Object> parse(final String text) {
-        return Observable.create(new Observable.OnSubscribe<Object>() {
+    public Observable<String> parse(final String text) {
+        return Observable.create(new Observable.OnSubscribe<String>() {
             @Override
-            public void call(Subscriber<? super Object> subscriber) {
+            public void call(Subscriber<? super String> subscriber) {
                 Matcher matcher = pattern.matcher(text);
                 while (matcher.find()) {
                     subscriber.onNext(selector.call(matcher));
