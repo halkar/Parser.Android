@@ -13,12 +13,7 @@ public class RegexParser {
     private final Func1<Matcher, String> selector;
 
     public RegexParser(Pattern pattern) {
-        this(pattern, new Func1<Matcher, String>() {
-            @Override
-            public String call(Matcher matcher) {
-                return matcher.group(1);
-            }
-        });
+        this(pattern, matcher -> matcher.group(1));
     }
 
     public RegexParser(Pattern pattern, Func1<Matcher, String> selector) {

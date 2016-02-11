@@ -17,10 +17,8 @@ public class LinksParserTest {
     @Parameterized.Parameters(name = "{index}: {0}")
     public static Iterable<Object[]> data() {
         return Arrays.asList(new Object[][]{
-                {"@bob @john (success) such a cool feature; https://twitter.com/jdorfman/status/430511497475670016",
-                        new Link[]{new Link("https://twitter.com/jdorfman/status/430511497475670016", "Title")}},
-                {"Olympics are starting soon; http://www.nbcolympics.com",
-                        new Link[]{new Link("http://www.nbcolympics.com", "Title")}},
+                {"@bob @john (success) such a cool feature; https://twitter.com/jdorfman/status/430511497475670016", new Link[]{new Link("https://twitter.com/jdorfman/status/430511497475670016", "Title")}},
+                {"Olympics are starting soon; http://www.nbcolympics.com", new Link[]{new Link("http://www.nbcolympics.com", "Title")}},
         });
     }
 
