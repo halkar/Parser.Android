@@ -7,6 +7,7 @@ import org.junit.runners.Parameterized;
 
 import java.util.Arrays;
 
+import au.shamsutdinov.artur.parser.interfaces.ElementParser;
 import rx.observers.TestSubscriber;
 
 @RunWith(Parameterized.class)
@@ -15,7 +16,7 @@ public class MentionsParserTest {
     public static Iterable<Object[]> data() {
         return Arrays.asList(new Object[][]{
                 {"@chris you around?", new Object[]{"chris"}},
-                {"@bob @john (success) such a cool feature; https://twitter.com/jdorfman/status/430511497475670016", new Object[]{"bob", "john"}},
+                {"@bob @john (success) such a cool feature; https://twitter.com/jdorfman/status/430511497475670016", new Object[]{"bob", "john"}}
         });
     }
 
@@ -29,7 +30,7 @@ public class MentionsParserTest {
 
     @Test
     public void simpleTest() throws JSONException {
-        MentionsParser parser = new MentionsParser();
+        ElementParser parser = new MentionsParser();
         TestSubscriber<Object> testSubscriber = new TestSubscriber<>();
         parser.parse(text).subscribe(testSubscriber);
         testSubscriber.assertNoErrors();

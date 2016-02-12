@@ -13,4 +13,19 @@ public class EmoticonsParser implements ElementParser {
     public Observable<Object> parse(String text) {
         return baseParser.parse(text).map(s -> s);
     }
+
+    @Override
+    public String remove(String text) {
+        return baseParser.remove(text);
+    }
+
+    @Override
+    public Integer getOrder() {
+        return 100;
+    }
+
+    @Override
+    public String getName() {
+        return "emoticons";
+    }
 }

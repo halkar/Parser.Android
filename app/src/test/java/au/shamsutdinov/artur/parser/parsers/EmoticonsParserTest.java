@@ -7,6 +7,7 @@ import org.junit.runners.Parameterized;
 
 import java.util.Arrays;
 
+import au.shamsutdinov.artur.parser.interfaces.ElementParser;
 import rx.observers.TestSubscriber;
 
 @RunWith(Parameterized.class)
@@ -16,7 +17,7 @@ public class EmoticonsParserTest {
     public static Iterable<Object[]> data() {
         return Arrays.asList(new Object[][]{
                 {"Good morning! (megusta) (coffee)", new Object[]{"megusta", "coffee"}},
-                {"@bob @john (success) such a cool feature; https://twitter.com/jdorfman/status/430511497475670016", new Object[]{"success"}},
+                {"@bob @john (success) such a cool feature; https://twitter.com/jdorfman/status/430511497475670016", new Object[]{"success"}}
         });
     }
 
@@ -30,7 +31,7 @@ public class EmoticonsParserTest {
 
     @Test
     public void simpleTest() throws JSONException {
-        EmoticonsParser parser = new EmoticonsParser();
+        ElementParser parser = new EmoticonsParser();
         TestSubscriber<Object> testSubscriber = new TestSubscriber<>();
         parser.parse(text).subscribe(testSubscriber);
         testSubscriber.assertNoErrors();

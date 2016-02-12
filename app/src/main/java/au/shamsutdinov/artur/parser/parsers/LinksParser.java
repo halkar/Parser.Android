@@ -9,7 +9,7 @@ import au.shamsutdinov.artur.parser.interfaces.TitleRetriever;
 import rx.Observable;
 
 public class LinksParser implements ElementParser {
-    private final RegexParser parser = new RegexParser(
+    private final RegexParser baseParser = new RegexParser(
             Pattern.compile("https?:\\/\\/(www\\.)?[-a-zA-Z0-9@:%._\\+~#=]{2,256}\\.[a-z]{2,6}\\b([-a-zA-Z0-9@:%_\\+.~#?&//=]*)"),
             Matcher::group);
     private final TitleRetriever titleRetriever;
@@ -19,7 +19,21 @@ public class LinksParser implements ElementParser {
     }
 
     public Observable<Object> parse(final String text) {
-        return parser.parse(text)
-                .flatMap(titleRetriever::getTitle, Link::new);
+        return baseParser.parse(text).flatMap(titleRetriever::getTitle, Link::new);
+    }
+
+    @Override
+    public String remove(String text) {
+        return baseParser.remove(text);
+    }
+
+    @Override
+    public Integer getOrder() {
+        return 1;
+    }
+
+    @Override
+    public String getName() {
+        return "links";
     }
 }

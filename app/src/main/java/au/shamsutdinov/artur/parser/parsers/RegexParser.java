@@ -34,4 +34,8 @@ public class RegexParser {
         });
     }
 
+    public String remove(String text) {
+        Matcher matcher = pattern.matcher(text);
+        return matcher.replaceAll("");
+    }
 }

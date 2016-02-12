@@ -8,6 +8,7 @@ import org.junit.runners.Parameterized;
 import java.util.Arrays;
 
 import au.shamsutdinov.artur.parser.data.Link;
+import au.shamsutdinov.artur.parser.interfaces.ElementParser;
 import au.shamsutdinov.artur.parser.interfaces.TitleRetriever;
 import rx.Observable;
 import rx.observers.TestSubscriber;
@@ -18,7 +19,7 @@ public class LinksParserTest {
     public static Iterable<Object[]> data() {
         return Arrays.asList(new Object[][]{
                 {"@bob @john (success) such a cool feature; https://twitter.com/jdorfman/status/430511497475670016", new Link[]{new Link("https://twitter.com/jdorfman/status/430511497475670016", "Title")}},
-                {"Olympics are starting soon; http://www.nbcolympics.com", new Link[]{new Link("http://www.nbcolympics.com", "Title")}},
+                {"Olympics are starting soon; http://www.nbcolympics.com", new Link[]{new Link("http://www.nbcolympics.com", "Title")}}
         });
     }
 
@@ -33,7 +34,7 @@ public class LinksParserTest {
     @Test
     public void simpleTest() throws JSONException {
         MockTitleRetriever titleRetriever = new MockTitleRetriever();
-        LinksParser parser = new LinksParser(titleRetriever);
+        ElementParser parser = new LinksParser(titleRetriever);
         TestSubscriber<Object> testSubscriber = new TestSubscriber<>();
         parser.parse(text).subscribe(testSubscriber);
         testSubscriber.assertNoErrors();
@@ -42,7 +43,6 @@ public class LinksParserTest {
     }
 
     public static class MockTitleRetriever implements TitleRetriever {
-
         @Override
         public Observable<String> getTitle(String urlString) {
             return Observable.just("Title");
