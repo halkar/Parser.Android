@@ -1,5 +1,6 @@
 package au.shamsutdinov.artur.parser;
 
+import android.support.annotation.NonNull;
 import android.util.Pair;
 
 import java.util.Arrays;
@@ -26,14 +27,22 @@ public class MessageParser implements Parser {
     public Observable<String> parse(String text) {
         ValueHolder dummy = new ValueHolder(text);
         return Observable.from(parsers)
-                .flatMap(parser -> {
-                    Observable<List<Object>> result = parser.parse(dummy.value).toList();
-                    dummy.value = parser.remove(dummy.value);
-                    return result;
-                }, (parser, results) -> new Pair<>(parser.getName(), results))
+                .map(parser -> new Pair<>(parser, dummy))
+                .flatMap(this::parseInternal, (parser, results) -> new Pair<>(parser.first.getName(), results))
                 .filter(pair -> pair.getSecond().size() > 0)
                 .toMap(Pair::getFirst, Pair::getSecond)
                 .map(serializer::toString);
+    }
+
+    @NonNull
+    private Observable<? extends List<Object>> parseInternal(Pair<ElementParser, ValueHolder> pair) {
+        ElementParser parser = pair.first;
+        ValueHolder holder = pair.second;
+        //parsing input value
+        Observable<List<Object>> result = parser.parse(holder.value).toList();
+        //removing all entries from the string to prevent nested elements
+        holder.value = parser.remove(holder.value);
+        return result;
     }
 
     public static class Pair<K, V> {

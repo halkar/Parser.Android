@@ -26,6 +26,6 @@ public class MentionsParser implements ElementParser {
 
     @Override
     public String getName() {
-        return "mention";
+        return "mentions";
     }
 }

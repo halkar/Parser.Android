@@ -1,7 +1,8 @@
 package au.shamsutdinov.artur.parser.interfaces;
 
-import java.util.Map;
-
+/**
+ * Interface encapsulating converting parsing outcomes into string representation.
+ */
 public interface Serializer {
-    String toString(Map value);
+    String toString(Object value);
 }

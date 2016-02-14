@@ -1,5 +1,8 @@
 package au.shamsutdinov.artur.parser.data;
 
+/**
+ * POJO class representing link information.
+ */
 public class Link {
     private String url;
     private String title;

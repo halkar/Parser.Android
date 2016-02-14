@@ -16,21 +16,21 @@ import rx.Observable;
 import rx.observers.TestSubscriber;
 
 @RunWith(Parameterized.class)
-public class ParserTest {
+public class MessageParserTest {
     @Parameterized.Parameters(name = "{index}: {0}")
     public static Iterable<Object[]> data() {
         return Arrays.asList(new Object[][]{
                 {"Good morning! (megusta) (coffee)", "{\"emoticons\":[\"megusta\",\"coffee\"]}"},
-                {"@bob @john (success) such a cool feature; https://twitter.com/jdorfman/status/430511497475670016", "{\"emoticons\":[\"success\"],\"links\":[{\"title\":\"Title\",\"url\":\"https://twitter.com/jdorfman/status/430511497475670016\"}],\"mention\":[\"bob\",\"john\"]}"},
-                {"Olympics are starting soon; http://www.nbcolympics.com", "{\"links\":[{\"title\":\"Title\",\"url\":\"http://www.nbcolympics.com\"}]}"},
-                {"http://login@pass:testurl.com", "{\"links\":[{\"title\":\"Title\",\"url\":\"http://login@pass:testurl.com\"}]}"}
+                {"@bob @john (success) such a cool feature; https://twitter.com/jdorfman/status/430511497475670016", "{\"emoticons\":[\"success\"],\"mentions\":[\"bob\",\"john\"],\"links\":[{\"url\":\"https://twitter.com/jdorfman/status/430511497475670016\",\"title\":\"Title\"}]}"},
+                {"Olympics are starting soon; http://www.nbcolympics.com", "{\"links\":[{\"url\":\"http://www.nbcolympics.com\",\"title\":\"Title\"}]}"},
+                {"http://login@pass:testurl.com", "{\"links\":[{\"url\":\"http://login@pass:testurl.com\",\"title\":\"Title\"}]}"}
         });
     }
 
     private final String text;
     private final String result;
 
-    public ParserTest(String text, String result) {
+    public MessageParserTest(String text, String result) {
         this.text = text;
         this.result = result;
     }

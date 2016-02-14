@@ -64,6 +64,7 @@ public class MainActivity extends AppCompatActivity implements Observer<String> 
     public void onError(Throwable e) {
         TextView resultText = (TextView) this.findViewById(R.id.resultText);
         resultText.setText(e.getMessage());
+        progressBar.setVisibility(View.INVISIBLE);
     }
 
     @Override

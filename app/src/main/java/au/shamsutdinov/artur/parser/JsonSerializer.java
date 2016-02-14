@@ -1,14 +1,13 @@
 package au.shamsutdinov.artur.parser;
 
-import org.json.JSONObject;
-
-import java.util.Map;
+import com.google.gson.Gson;
 
 import au.shamsutdinov.artur.parser.interfaces.Serializer;
 
 public class JsonSerializer implements Serializer {
+    private static final Gson gson = new Gson();
     @Override
-    public String toString(Map value) {
-        return new JSONObject(value).toString();
+    public String toString(Object value) {
+        return gson.toJson(value);
     }
 }
