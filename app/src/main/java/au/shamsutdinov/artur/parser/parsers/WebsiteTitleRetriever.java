@@ -1,9 +1,11 @@
 package au.shamsutdinov.artur.parser.parsers;
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -34,10 +36,15 @@ public class WebsiteTitleRetriever implements TitleRetriever {
                     Matcher matcher = regex.matcher(html);
                     if (matcher.find()) {
                         subscriber.onNext(matcher.group(1));
+                    } else {
+                        subscriber.onNext(null);
                     }
                     subscriber.onCompleted();
-                } catch (Exception e) {
+                } catch (MalformedURLException e) {
                     subscriber.onError(e);
+                } catch (IOException e) {
+                    subscriber.onNext(null);
+                    subscriber.onCompleted();
                 }
             }
         });
