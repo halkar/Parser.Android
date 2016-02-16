@@ -6,6 +6,9 @@ import au.shamsutdinov.artur.parser.interfaces.ElementParser;
 import rx.Observable;
 import rx.functions.Func1;
 
+/**
+ * Parsing mentions like "@mike".
+ */
 public class MentionsParser implements ElementParser {
     private final RegexParser baseParser = new RegexParser(Pattern.compile("@(\\w+)"));
 

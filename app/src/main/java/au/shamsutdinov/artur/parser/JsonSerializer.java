@@ -4,6 +4,9 @@ import com.google.gson.Gson;
 
 import au.shamsutdinov.artur.parser.interfaces.Serializer;
 
+/**
+ * Converting POJO to JSON string.
+ */
 public class JsonSerializer implements Serializer {
     private static final Gson gson = new Gson();
     @Override

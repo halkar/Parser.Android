@@ -8,6 +8,9 @@ import au.shamsutdinov.artur.parser.interfaces.ElementParser;
 import au.shamsutdinov.artur.parser.interfaces.TitleRetriever;
 import rx.Observable;
 
+/**
+ * Parsing links like "http://google.com".
+ */
 public class LinksParser implements ElementParser {
     private final RegexParser baseParser = new RegexParser(
             Pattern.compile("https?:\\/\\/(www\\.)?[-a-zA-Z0-9@:%._\\+~#=]{2,256}\\.[a-z]{2,6}\\b([-a-zA-Z0-9@:%_\\+.~#?&//=]*)"),

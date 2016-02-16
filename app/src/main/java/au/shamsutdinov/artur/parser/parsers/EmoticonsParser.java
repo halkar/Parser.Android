@@ -6,6 +6,9 @@ import au.shamsutdinov.artur.parser.interfaces.ElementParser;
 import rx.Observable;
 import rx.functions.Func1;
 
+/**
+ * Parsing emoticons like "(smile)".
+ */
 public class EmoticonsParser implements ElementParser {
     private final RegexParser baseParser = new RegexParser(Pattern.compile("\\(([a-zA-Z0-9]{1,15})\\)"));
 

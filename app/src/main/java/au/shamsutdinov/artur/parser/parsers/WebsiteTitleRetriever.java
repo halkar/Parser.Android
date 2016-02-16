@@ -14,6 +14,9 @@ import au.shamsutdinov.artur.parser.interfaces.TitleRetriever;
 import rx.Observable;
 import rx.Subscriber;
 
+/**
+ * Observable wrapper for HTTP request.
+ */
 public class WebsiteTitleRetriever implements TitleRetriever {
     private final Pattern regex = Pattern.compile("<title[^>]*>(.*?)</title>");
 
@@ -34,6 +37,7 @@ public class WebsiteTitleRetriever implements TitleRetriever {
                     in.close();
                     String html = str.toString();
                     Matcher matcher = regex.matcher(html);
+                    //extract title
                     if (matcher.find()) {
                         subscriber.onNext(matcher.group(1));
                     } else {

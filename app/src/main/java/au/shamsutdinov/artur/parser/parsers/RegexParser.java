@@ -7,6 +7,10 @@ import rx.Observable;
 import rx.Subscriber;
 import rx.functions.Func1;
 
+/**
+ * Base parser for all other parsers.
+ * Input strings are parsed using regular expression.
+ */
 public class RegexParser {
 
     private final Pattern pattern;
@@ -21,6 +25,11 @@ public class RegexParser {
         this.selector = selector;
     }
 
+    /**
+     * Extract values from the string and return them as observable.
+     * @param text message to parse.
+     * @return observable result.
+     */
     public Observable<String> parse(final String text) {
         return Observable.create(new Observable.OnSubscribe<String>() {
             @Override
@@ -34,6 +43,9 @@ public class RegexParser {
         });
     }
 
+    /**
+     * Remove all found entries from the message.
+     */
     public String remove(String text) {
         Matcher matcher = pattern.matcher(text);
         return matcher.replaceAll("");

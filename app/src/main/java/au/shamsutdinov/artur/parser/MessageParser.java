@@ -12,6 +12,9 @@ import au.shamsutdinov.artur.parser.interfaces.Serializer;
 import rx.Observable;
 import rx.functions.Func2;
 
+/**
+ * Extracting data from the message.
+ */
 public class MessageParser implements Parser {
     private final ElementParser[] parsers;
     private final Serializer serializer;
@@ -28,9 +31,12 @@ public class MessageParser implements Parser {
         ValueHolder dummy = new ValueHolder(text);
         return Observable.from(parsers)
                 .map(parser -> new Pair<>(parser, dummy))
+                //passing message to each of the parsers sequentially
                 .flatMap(this::parseInternal, (parser, results) -> new Pair<>(parser.first.getName(), results))
+                //filtering empty results
                 .filter(pair -> pair.getSecond().size() > 0)
                 .toMap(Pair::getFirst, Pair::getSecond)
+                //converting results to string
                 .map(serializer::toString);
     }
 
