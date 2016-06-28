@@ -1,5 +1,7 @@
 package au.shamsutdinov.artur.parser.parsers;
 
+import android.util.Patterns;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -13,7 +15,7 @@ import rx.Observable;
  */
 public class LinksParser implements ElementParser {
     private final RegexParser baseParser = new RegexParser(
-            Pattern.compile("https?:\\/\\/(www\\.)?[-a-zA-Z0-9@:%._\\+~#=]{2,256}\\.[a-z]{2,6}\\b([-a-zA-Z0-9@:%_\\+.~#?&//=]*)"),
+            Patterns.WEB_URL,
             Matcher::group);
     private final TitleRetriever titleRetriever;
 
